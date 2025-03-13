@@ -17,3 +17,9 @@ Metrics/MethodLength:
 
 Metrics/BlockLength:
   Max: 100
+
+RSpec/MultipleMemoizedHelpers:
+  Enabled: false
+
+RSpec/NestedGroups:
+  Max: 5
