@@ -16,13 +16,13 @@ describe Locations::ParentLocationsQuery do
       context 'when location is district' do
         let(:location) { district }
 
-        it { is_expected.to contain_exactly(district, region) }
+        it { is_expected.to eq([district, region]) }
       end
 
       context 'when location is address' do
         let(:location) { address }
 
-        it { is_expected.to contain_exactly(address, street, city, district, region) }
+        it { is_expected.to eq([address, street, city, district, region]) }
       end
     end
 

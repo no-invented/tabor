@@ -13,7 +13,7 @@ describe Locations::SortLocationsQuery do
       let!(:city) { create(:location, location_type: :city, location_id: region.id) }
       let!(:district) { create(:location, location_type: :district, location_id: region.id) }
 
-      it { is_expected.to contain_exactly(region, district, city) }
+      it { is_expected.to eq([region, district, city]) }
     end
 
     context 'when locations are not directly related' do
@@ -21,7 +21,7 @@ describe Locations::SortLocationsQuery do
       let!(:region) { create(:location, location_type: :region) }
       let!(:city) { create(:location, location_type: :city) }
 
-      it { is_expected.to contain_exactly(region, district, city) }
+      it { is_expected.to eq([region, district, city]) }
     end
 
     context 'with depth value' do
@@ -32,7 +32,7 @@ describe Locations::SortLocationsQuery do
       let!(:street) { create(:location, location_type: :street, location_id: region_second.id) }
       let!(:address) { create(:location, location_type: :address, location_id: region.id) }
 
-      it { is_expected.to contain_exactly(region, region_second, city, street, address, district) }
+      it { is_expected.to eq([region, region_second, city, street, address, district]) }
     end
 
     context 'without locations' do

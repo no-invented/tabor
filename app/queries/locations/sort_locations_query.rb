@@ -15,7 +15,7 @@ module Locations
     def call
       locations.sort_by do |location|
         [
-          -depth(location),
+          depth(location),
           Location.location_types.keys.index(location.location_type),
           location.id
         ]
