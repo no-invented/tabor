@@ -4,8 +4,12 @@ class Location < ApplicationRecord
   belongs_to :parent_location,
              class_name: 'Location',
              foreign_key: 'location_id',
-             inverse_of: :child_location,
+             inverse_of: :child_locations,
              optional: true
+
+  has_many :child_locations,
+           class_name: 'Location',
+           dependent: :destroy
 
   LOCATION_TYPES = %i[
     region

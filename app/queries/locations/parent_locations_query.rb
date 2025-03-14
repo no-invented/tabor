@@ -2,10 +2,9 @@
 
 module Locations
   class ParentLocationsQuery
-    attr_reader :scope, :location
+    attr_reader :location
 
-    def initialize(location:, scope: Location.all)
-      @scope = scope
+    def initialize(location:)
       @location = location
     end
 
@@ -14,22 +13,15 @@ module Locations
     end
 
     def call
-      return scope.none unless location
+      parents = []
+      current_location = location
 
-      sql = <<-SQL.squish
-        WITH RECURSIVE recursive_locations AS (
-          SELECT *
-          FROM locations
-          WHERE id = :location_id
-          UNION ALL
-          SELECT locations.*
-          FROM locations
-          INNER JOIN recursive_locations ON recursive_locations.location_id = locations.id
-        )
-        SELECT * FROM recursive_locations;
-      SQL
+      while current_location
+        parents << current_location
+        current_location = current_location.parent_location
+      end
 
-      scope.find_by_sql([sql, { location_id: location.id }])
+      parents
     end
   end
 end

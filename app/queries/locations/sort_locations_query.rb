@@ -2,10 +2,9 @@
 
 module Locations
   class SortLocationsQuery
-    attr_reader :scope, :locations
+    attr_reader :locations
 
-    def initialize(locations:, scope: Location.all)
-      @scope = scope
+    def initialize(locations:)
       @locations = locations
     end
 
@@ -14,31 +13,26 @@ module Locations
     end
 
     def call
-      location_ids = locations.select(&:id)
-      return scope.none if location_ids.blank?
+      locations.sort_by do |location|
+        [
+          -depth(location),
+          Location.location_types.keys.index(location.location_type),
+          location.id
+        ]
+      end
+    end
 
-      location_types = scope.location_types.map(&:to_s)
+    private
 
-      sql = <<-SQL.squish
-        WITH RECURSIVE recursive_locations AS (
-          SELECT *, 0 AS depth
-          FROM locations
-          WHERE location_id IS NULL
-          UNION ALL
-          SELECT locations.*, recursive_locations.depth + 1 AS depth
-          FROM locations
-          INNER JOIN recursive_locations ON locations.location_id = recursive_locations.id
-        )
-        SELECT *
-        FROM recursive_locations
-        WHERE id IN (:location_ids)
-        ORDER BY
-          depth ASC,
-          array_position(ARRAY[:location_types], location_type::text),
-          id ASC
-      SQL
+    def depth(location)
+      depth = 0
 
-      scope.find_by_sql([sql, { location_ids: location_ids, location_types: location_types }])
+      while location.parent_location
+        depth += 1
+        location = location.parent_location
+      end
+
+      depth
     end
   end
 end
