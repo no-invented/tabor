@@ -5,7 +5,7 @@ source 'https://rubygems.org'
 gem 'bootsnap', require: false
 gem 'pg', '~> 1.1'
 gem 'puma', '>= 5.0'
-gem 'rails', '~> 8.0.1'
+gem 'rails', '~> 8.0.3'
 
 group :development, :test do
   gem 'awesome_print'
