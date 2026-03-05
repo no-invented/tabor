@@ -1,0 +1,61 @@
+# frozen_string_literal: true
+
+module MessageDeliverTest
+  module Constants
+    RUN_DATA_TTL_SECONDS = 7 * 24 * 60 * 60
+    MESSAGE_TIME_HISTOGRAM_BUCKET_SIZE_MS = 10.0
+    MESSAGE_TIME_HISTOGRAM_MAX_BUCKET_INDEX = 300
+    MILLISECONDS_IN_SECOND = 1000.0
+    PERCENTILE_MEDIAN = 50.0
+    PERCENTILE_95 = 95.0
+    REDIS_WATCH_RETRY_LIMIT = 5
+    STORED_ERROR_EVENTS_LIMIT = 10_000
+
+    DEFAULT_MESSAGES_PER_USER = 100
+    DEFAULT_SENDER_USER_ID = 404
+    DEFAULT_SIDEKIQ_QUEUE = 'message_deliver_test'
+    START_JOB_SIDEKIQ_RETRY_COUNT = 3
+    WORKER_JOB_SIDEKIQ_RETRY_COUNT = 5
+    FINALIZE_JOB_SIDEKIQ_RETRY_COUNT = 3
+    SIDEKIQ_BULK_PUSH_BATCH_SIZE = 1000
+
+    JOB_ACCOUNTING_STATE_SUCCESS = 'success'
+    JOB_ACCOUNTING_STATE_FAILED = 'failed'
+
+    REPORT_DIRECTORY_RELATIVE_PATH = 'tmp/message_deliver_test'
+    REPORT_FILE_NAME_PREFIX = 'message_deliver_test'
+    REPORT_HORIZONTAL_SEPARATOR_WIDTH = 120
+    REPORT_DETAIL_SECTION_DATABASE_LIMIT = 10
+    REPORT_ERROR_EVENTS_SAMPLE_LIMIT = 20
+
+    EXCLUDED_SHARD_HOSTS = ['192.168.19.65', '192.168.19.177'].freeze
+    TEST_USER_AGE_YEARS = 20
+    TEST_USER_SEX = 1
+    TEST_USER_COUNTRY_ID = 3159
+    TEST_USER_CITY_ID = 1
+
+    REDIS_FIELD_RUN_ID = 'run_id'
+    REDIS_FIELD_RUN_STATUS = 'run_status'
+    REDIS_FIELD_STARTED_AT = 'started_at'
+    REDIS_FIELD_FINISHED_AT = 'finished_at'
+    REDIS_FIELD_REPORT_PATH = 'report_path'
+    REDIS_FIELD_MESSAGES_PER_USER = 'messages_per_user'
+    REDIS_FIELD_TABLE_COUNT = 'table_count'
+    REDIS_FIELD_SENDER_USER_ID = 'sender_user_id'
+    REDIS_FIELD_EXPECTED_JOB_COUNT = 'expected_job_count'
+    REDIS_FIELD_FAILED_JOB_COUNT = 'failed_job_count'
+
+    REDIS_FIELD_DATABASE_HOST = 'database_host'
+    REDIS_FIELD_DATABASE_NAME = 'database_name'
+    REDIS_FIELD_USERS_TOTAL = 'users_total'
+    REDIS_FIELD_USERS_WITH_SENT_MESSAGES = 'users_with_sent_messages'
+    REDIS_FIELD_USER_CREATION_TIME_SUM_SECONDS = 'user_creation_time_sum_seconds'
+    REDIS_FIELD_MESSAGE_DELIVERY_TIME_SUM_SECONDS = 'message_delivery_time_sum_seconds'
+    REDIS_FIELD_TOTAL_MESSAGES_SENT = 'total_messages_sent'
+    REDIS_FIELD_TOTAL_MESSAGE_SEND_ERRORS = 'total_message_send_errors'
+    REDIS_FIELD_MESSAGE_TIME_SUM_MS = 'message_time_sum_ms'
+    REDIS_FIELD_MESSAGE_TIME_SUM_OF_SQUARES_MS = 'message_time_sum_of_squares_ms'
+    REDIS_FIELD_MESSAGE_TIME_MIN_MS = 'message_time_min_ms'
+    REDIS_FIELD_MESSAGE_TIME_MAX_MS = 'message_time_max_ms'
+  end
+end
